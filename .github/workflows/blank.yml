@@ -57,7 +57,7 @@ jobs:
           repository: Nats-ji/oo2ext
           token: ${{ secrets.PAT }}
           path: ./CP77Tools/CP77Tools/bin/Release/net5.0-windows/win-x64/
-        
+      - run: Tree
       - name: Rebuild Texture
         run: |
           .\CP77Tools\CP77Tools\bin\Release\net5.0-windows\win-x64\CP77Tools.exe rebuild -b -t --keep --unsaferaw -p ".\new-moon"
