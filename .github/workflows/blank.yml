@@ -55,8 +55,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: Nats-ji/oo2ext
-          ref: main
-          token: ${{ github.token }}
+          token: ${{ secrets.PAT }}
           path: ./CP77Tools/CP77Tools/bin/Release/net5.0-windows/win-x64/
         
       - name: Rebuild Texture
