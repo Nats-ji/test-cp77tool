@@ -29,42 +29,37 @@ jobs:
         uses: actions/setup-dotnet@v1.7.2
         with:
           dotnet-version: 5.0.100
-      
-      - name: Clone CP77Tool
-        uses: actions/checkout@v2
-        with:
-          repository: WolvenKit/CP77Tools
-          path: ./CP77Tools
 
-      - name: Clean
-        run: |
-          cd .\CP77Tools
-          dotnet clean ./CP77Tools.sln --configuration Release && dotnet nuget locals all --clear
+      - name: Download CP77Tools
+        uses: i3h/download-release-asset@v1.2.0
+        with:
+          owner: WolvenKit
+          repo: CP77Tools
+          tag: v.1.1.0.5
+          file: Release_1.2.zip
           
-      - name: Install dependencies
-        run: |
-          cd .\CP77Tools
-          dotnet restore
+      - name: Unzip CP77Tools
+        uses: DuckSoft/extract-7z-action@v1.0
+        with:
+          pathSource: Release_1.2.zip
+          pathTarget: CP77Tools/
       
-      - name: Build
-        run: |
-          cd .\CP77Tools
-          dotnet build --configuration Release --no-restore
-          
       - name: Clone dll dependency
         uses: actions/checkout@v2
         with:
           repository: Nats-ji/oo2ext
           token: ${{ secrets.PAT }}
-          path: ./CP77Tools/CP77Tools/bin/Release/net5.0-windows/win-x64/
-      - run: Tree
+          path: .\CP77Tools\Release\net5.0-windows\win-x64\
+      
+      - run: ls .\CP77Tools\Release\net5.0-windows\win-x64\
+      
       - name: Rebuild Texture
         run: |
-          .\CP77Tools\CP77Tools\bin\Release\net5.0-windows\win-x64\CP77Tools.exe rebuild -b -t --keep --unsaferaw -p ".\new-moon"
+          .\CP77Tools\Release\net5.0-windows\win-x64\CP77Tools.exe rebuild -b -t --keep --unsaferaw -p ".\new-moon"
           
       - name: Pack archive
         run: |
-          .\CP77Tools\CP77Tools\bin\Release\net5.0-windows\win-x64\CP77Tools.exe pack -p ".\new-moon"
+          .\CP77Tools\Release\net5.0-windows\win-x64\CP77Tools.exe pack -p ".\new-moon"
           
       - uses: actions/upload-artifact@v2
         with:
