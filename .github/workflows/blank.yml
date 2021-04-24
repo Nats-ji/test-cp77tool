@@ -51,6 +51,16 @@ jobs:
           cd .\CP77Tools
           dotnet build --configuration Release --no-restore
           
-      - name: Tree
-        run: Tree
+      - name: Rebuild Texture
+        run: |
+          .\CP77Tools\CP77Tools\bin\Release\net5.0-windows\win-x64\CP77Tools.exe rebuild -b -t --keep --unsaferaw -p ".\new-moon"
+          
+      - name: Pack archive
+        run: |
+          .\CP77Tools\CP77Tools\bin\Release\net5.0-windows\win-x64\CP77Tools.exe pack -p ".\new-moon"
+          
+      - uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: ./*.archive
 
