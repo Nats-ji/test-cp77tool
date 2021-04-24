@@ -51,10 +51,12 @@ jobs:
           cd .\CP77Tools
           dotnet build --configuration Release --no-restore
           
-      - name: Clone dependency dll
+      - name: Clone dll dependency
         uses: actions/checkout@v2
         with:
           repository: Nats-ji/oo2ext
+          ref: main
+          token: ${{ github.token }}
           path: ./CP77Tools/CP77Tools/bin/Release/net5.0-windows/win-x64/
         
       - name: Rebuild Texture
