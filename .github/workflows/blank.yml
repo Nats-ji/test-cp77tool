@@ -38,19 +38,23 @@ jobs:
 
       - name: Clean
         run: |
-          cd ./CP77Tools
+          cd .\CP77Tools
           dotnet clean ./CP77Tools.sln --configuration Release && dotnet nuget locals all --clear
           
       - name: Install dependencies
         run: |
-          cd ./CP77Tools
+          cd .\CP77Tools
           dotnet restore
       
       - name: Build
         run: |
-          cd ./CP77Tools
+          cd .\CP77Tools
           dotnet build --configuration Release --no-restore
           
+      - name: Rebuild texture
+        run: |
+          cd .\CP77Tools\bin\Release\net5.0\
+      
       - name: Tree
-        run: Tree .\
+        run: Tree
 
