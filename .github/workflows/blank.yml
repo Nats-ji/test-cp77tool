@@ -52,5 +52,5 @@ jobs:
           dotnet build --configuration Release --no-restore
           
       - name: Tree
-        run: tree ./
+        run: Tree .\
 
