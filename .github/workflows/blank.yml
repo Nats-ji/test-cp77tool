@@ -43,23 +43,27 @@ jobs:
         with:
           pathSource: Release_1.2.zip
           pathTarget: CP77Tools/
-          
-      - run: tree /F
       
       - name: Clone dll dependency
         uses: actions/checkout@v2
         with:
           repository: Nats-ji/oo2ext
           token: ${{ secrets.PAT }}
-          path: .\CP77Tools\Release\net5.0-windows\win-x64\
+          path: CP77Tools\Release\net5.0-windows\win-x64\
+          
+      - run: tree /F
       
       - name: Rebuild Texture
         run: |
-          .\CP77Tools\Release\net5.0-windows\win-x64\CP77Tools.exe rebuild -b -t --keep --unsaferaw -p ".\new-moon"
+          cd CP77Tools\Release\net5.0-windows\win-x64\
+          CP77Tools.exe rebuild -b -t --keep --unsaferaw -p "new-moon\"
           
       - name: Pack archive
         run: |
-          .\CP77Tools\Release\net5.0-windows\win-x64\CP77Tools.exe pack -p ".\new-moon"
+          cd CP77Tools\Release\net5.0-windows\win-x64\
+          CP77Tools.exe pack -p "new-moon\"
+          
+      - run: ls
           
       - uses: actions/upload-artifact@v2
         with:
