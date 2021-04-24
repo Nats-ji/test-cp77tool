@@ -51,10 +51,6 @@ jobs:
           cd .\CP77Tools
           dotnet build --configuration Release --no-restore
           
-      - name: Rebuild texture
-        run: |
-          cd .\CP77Tools\bin\Release\net5.0\
-      
       - name: Tree
         run: Tree
 
