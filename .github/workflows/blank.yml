@@ -28,7 +28,7 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.7.2
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: 5.0.100
       
       - name: Clone CP77Tool
         uses: actions/checkout@v2
@@ -36,10 +36,20 @@ jobs:
           repository: WolvenKit/CP77Tools
           path: ./CP77Tools
 
-      - name: Build CP77Tools
+      - name: Clean
         run: |
-          cd CP77Tools
-          dotnet build --configuration Release
+          cd ./CP77Tools
+          dotnet clean ./CP77Tools.sln --configuration Release && dotnet nuget locals all --clear
+          
+      - name: Install dependencies
+        run: |
+          cd ./CP77Tools
+          dotnet restore
+      
+      - name: Build
+        run: |
+          cd ./CP77Tools
+          dotnet build --configuration Release --no-restore
           
       - name: Tree
         run: tree ./
