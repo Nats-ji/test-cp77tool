@@ -43,6 +43,8 @@ jobs:
         with:
           pathSource: Release_1.2.zip
           pathTarget: CP77Tools/
+          
+      - run: tree /F
       
       - name: Clone dll dependency
         uses: actions/checkout@v2
@@ -50,8 +52,6 @@ jobs:
           repository: Nats-ji/oo2ext
           token: ${{ secrets.PAT }}
           path: .\CP77Tools\Release\net5.0-windows\win-x64\
-      
-      - run: ls .\CP77Tools\Release\net5.0-windows\win-x64\
       
       - name: Rebuild Texture
         run: |
